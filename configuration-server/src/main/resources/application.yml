@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: configuration-server
+  cloud:
+    config:
+      server:
+        git:
+          clone-on-start: true
+          default-label: main
+          skip-ssl-validation: true
+          uri: https://github.com/arkarmoe17/microservices-config-server.git

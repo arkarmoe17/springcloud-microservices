@@ -1,0 +1,30 @@
+eureka:
+  instance:
+    instance-id: ${spring.application.name}-${random.uuid}
+server:
+  port: 8088
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-service
+          predicates:
+            - Path=/api/product,/api/test
+          uri: lb://product-service/**
+        - id: order-service
+          predicates:
+            - Path=/api/order
+          uri: lb://order-service/**
+        - id: inventory-service
+          predicates:
+            - Path=/api/inventory
+          uri: lb://inventory-service/**
+    loadbalancer:
+      ribbon:
+        enabled: false
